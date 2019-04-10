@@ -30,27 +30,26 @@ std::ostream& operator<<(std::ostream& os, const Base& b) {
 }
 
 /* -------------------------------------------------------------------------- */
-#if HAVE_PAPI
-void handleError(int retval) {
-  std::fprintf(stderr, "PAPI error %d: %s\n", retval, PAPI_strerror(retval));
-  std::exit(EXIT_FAILURE);
-}
-#endif
-//--------- Base class implementation -------------//
 void Base::registerEvent(const std::string& name, const std::string& header) {
 #if HAVE_PAPI
   int counter;
   int retval = PAPI_event_name_to_code(name.c_str(), &counter);
-  if (retval != PAPI_OK) {
-    std::fprintf(stderr, "Could not decode PAPI counter: %s\n", name.data());
-  } else {
+  if (retval == PAPI_OK) {
     values_.push_back(0);
     counters_.push_back(counter);
     headers_.push_back(header);
+  } else {
+    std::fprintf(stderr, "Could not decode PAPI counter: %s\n", name.data());
   }
 #endif
 }
 
+/* -------------------------------------------------------------------------- */
+#if HAVE_PAPI
+void Base::printError(int retval) const {
+  std::fprintf(stderr, "PAPI error %d: %s\n", retval, PAPI_strerror(retval));
+}
+#endif
 /* -------------------------------------------------------------------------- */
 void Base::reset() {
   for (auto& value : values_) {
@@ -60,14 +59,13 @@ void Base::reset() {
 
 /* -------------------------------------------------------------------------- */
 void Base::start() {
-#ifdef HAVE_PAPI
-  std::vector<int> eventsMutable(counters_.data(), counters_.data() + counters_.size());
-  int retval = PAPI_start_counters(&eventsMutable[0], counters_.size());
-  if (retval == PAPI_OK) {
-    has_started_ = true;
-  } else {
-    std::cerr << "PAPI error " << retval << ": " << PAPI_strerror(retval) << std::endl;
-    has_started_ = false;
+#if HAVE_PAPI
+  auto const& size = counters_.size();
+  std::vector<int> events(counters_);
+  int retval = PAPI_start_counters(&events[0], size);
+  started_ = (retval == PAPI_OK);
+  if (not started_) {
+    printError(retval);
   }
 #endif
 }
@@ -75,24 +73,25 @@ void Base::start() {
 /* -------------------------------------------------------------------------- */
 void Base::stop() {
   if (not values_.empty()) {
-    if (has_started_) {
+    if (started_) {
       auto const size = counters_.size();
-      long long copy[size];
-#ifdef HAVE_PAPI
-      int retval = PAPI_stop_counters(&copy[0], size);
+      long long events[size];
+#if HAVE_PAPI
+      int retval = PAPI_stop_counters(&events[0], size);
       if (retval != PAPI_OK) {
-        handleError(retval);
+        printError(retval);
+        std::exit(EXIT_FAILURE);
       }
 #endif
       for (unsigned i = 0; i < values_.size(); ++i) {
-        values_[i] += copy[i];
+        values_[i] += events[i];
       }
     } else {
       for (auto& value : values_) {
         value = -1;
       }
     }
-    has_started_ = false;
+    started_ = false;
   }
 }
 
