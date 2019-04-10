@@ -40,13 +40,13 @@ public:
   Manager() = delete;
   Manager(Manager const&) = delete;
   Manager(Manager&&) noexcept = default;
-  Manager(Mode mode, int nb_kernels);
-  Manager(std::vector<Event> const& events, int nb_kernels);
+  explicit Manager(Mode mode, int nb_kernels = 1);
+  explicit Manager(std::vector<Event> const& events, int nb_kernels = 1);
   virtual ~Manager();
 
-  void start(int in_kernel);
-  void stop(int in_kernel);
-  void reduce(int in_kernel);
+  void start(int in_kernel = 0);
+  void stop(int in_kernel = 0);
+  void reduce(int in_kernel = 0);
   void report();
 
 private:
