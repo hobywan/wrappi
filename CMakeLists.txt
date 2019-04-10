@@ -28,9 +28,9 @@ target_sources(wrappi PRIVATE
 
 set_target_properties(wrappi PROPERTIES
         PUBLIC_HEADER include/wrappi.h
-        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
         CXX_EXTENSIONS ON)
 
 
@@ -60,8 +60,6 @@ endif ()
 
 # manage compilation options
 target_compile_features(wrappi PUBLIC cxx_std_14)
-target_compile_definitions(wrappi PRIVATE WRAPPI_EXAMP_DIR="${CMAKE_SOURCE_DIR}/examples")
-target_compile_definitions(wrappi PRIVATE WRAPPI_BUILD_DIR="${CMAKE_BINARY_DIR}")
 
 # set build-type dependent options
 set(DEFAULT_BUILD_TYPE "Release")
