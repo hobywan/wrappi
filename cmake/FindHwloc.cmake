@@ -1,0 +1,7 @@
+include(FindPackageHandleStandardArgs)
+
+find_path(HWLOC_INCLUDE_DIR hwloc.h)
+find_library(HWLOC_LIBRARY  hwloc)
+find_package_handle_standard_args(HWLOC DEFAULT_MSG HWLOC_INCLUDE_DIR HWLOC_LIBRARY)
+
+mark_as_advanced(HWLOC_INCLUDE_DIR HWLOC_LIBRARY)
