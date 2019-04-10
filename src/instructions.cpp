@@ -25,8 +25,8 @@
 namespace wrappi {
 /* -------------------------------------------------------------------------- */
 Instruct::Instruct() {
-  this->registerEvent(std::string("PAPI_LD_INS"), std::string("loads")); //NOT on AMD
-  this->registerEvent(std::string("PAPI_SR_INS"), std::string("stores")); //NOT on AMD
+  this->registerEvent(std::string("PAPI_LD_INS"), std::string("loads"));
+  this->registerEvent(std::string("PAPI_SR_INS"), std::string("stores"));
   this->registerEvent(std::string("PAPI_BR_INS"), std::string("branches"));
   this->registerEvent(std::string("PAPI_TOT_INS"), std::string("total"));
 }
@@ -34,31 +34,42 @@ Instruct::Instruct() {
 /* -------------------------------------------------------------------------- */
 long long inline Instruct::getLoadCount() const { return values_[0]; }
 
+/* -------------------------------------------------------------------------- */
 long long inline Instruct::getStoreCount() const { return values_[1]; }
 
+/* -------------------------------------------------------------------------- */
 long long inline Instruct::getBranchCount() const { return values_[2]; }
 
+/* -------------------------------------------------------------------------- */
 long long inline Instruct::countInstructions() const { return values_[3]; }
 
 /* -------------------------------------------------------------------------- */
 double Instruct::getLoadRatio() const {
-  return getLoadCount() / (double) countInstructions();
+  auto const& load_count  = getLoadCount();
+  auto const& total_count = countInstructions();
+  return double(load_count) / total_count;
 }
 
 /* -------------------------------------------------------------------------- */
 double Instruct::getStoreRatio() const {
-  return getStoreCount() / (double) countInstructions();
+  auto const& store_count = getStoreCount();
+  auto const& total_count = countInstructions();
+  return double(store_count) / total_count;
 }
 
 /* -------------------------------------------------------------------------- */
 double Instruct::getBranchRatio() const {
-  return getBranchCount() / (double) countInstructions();
+  auto const& branch_count = getBranchCount();
+  auto const& total_count  = countInstructions();
+  return double(branch_count) / total_count;
 }
 
 /* -------------------------------------------------------------------------- */
 void Instruct::to_stream(std::ostream& os) const {
-  os << getLoadRatio() << "\t" << getStoreRatio()
-     << "\t" << getBranchRatio();
+  auto const& load_ratio   = getLoadRatio();
+  auto const& store_ratio  = getStoreRatio();
+  auto const& branch_ratio = getBranchRatio();
+  os << load_ratio << "\t" << store_ratio << "\t" << branch_ratio;
 }
 /* -------------------------------------------------------------------------- */
 } // end namespace wrappi

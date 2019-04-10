@@ -49,6 +49,9 @@ public:
   friend std::ostream& operator<<(std::ostream& os, const Base& p);
 
 private:
+  #if HAVE_PAPI
+    void printError(int retval) const;
+  #endif
   virtual void to_stream(std::ostream& os) const = 0;
 
 protected:
@@ -67,16 +70,11 @@ protected:
    * An array containing the actual hardware counter values (recorded at stop()
    * invocations).
    */
-  std::vector<long long> values_; // accessed by friended stream overloading.
-
+  std::vector<long long> values_;
 private:
-  bool has_started_ = false;
+  bool started_ = false;
   std::vector<int> counters_ = {};
   std::vector<std::string> headers_ = {};
-
-  /** Writes the polymorphic object to an output stream */
-  /** An array mapping the indexes used in this object to PAPI hardware counter ids. */
-  /** An array that maps PAPI hardware counters onto human-readable strings. */
 };
 /* -------------------------------------------------------------------------- */
 } // end namespace wrappi

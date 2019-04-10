@@ -45,23 +45,30 @@ long long inline Cache::getL3CacheAccess() const { return values_[3]; }
 
 /* -------------------------------------------------------------------------- */
 double Cache::getL2MissesRatio() const {
-  return getL2CacheMisses() / (double) getL2CacheAccess();
+  auto const& l2_misses = getL3CacheMisses();
+  auto const& l2_access = getL3CacheAccess();
+  return double(l2_misses) / l2_access;
 }
 
 /* -------------------------------------------------------------------------- */
 double Cache::getL3MissesRatio() const {
-  return getL3CacheMisses() / (double) getL3CacheAccess();
+  auto const& l3_misses = getL3CacheMisses();
+  auto const& l3_access = getL3CacheAccess();
+  return double(l3_misses) / l3_access;
 }
 
 /* -------------------------------------------------------------------------- */
 void Cache::to_stream(std::ostream& os) const {
 
-  long long const misses[] = { getL2CacheMisses(), getL3CacheMisses() };
-  long long const access[] = { getL2CacheAccess(), getL3CacheAccess() };
-  double const    ratios[] = { getL2MissesRatio(), getL3MissesRatio() };
+  auto const& l2_misses = getL2CacheMisses();
+  auto const& l3_misses = getL3CacheMisses();
+  auto const& l2_access = getL2CacheAccess();
+  auto const& l3_access = getL3CacheAccess();
+  auto const& l2_ratio  = getL2MissesRatio();
+  auto const& l3_ratio  = getL3MissesRatio();
 
-  os << misses[0] << "\t" << access[0] << "\t" << ratios[0] << "\t"
-     << misses[1] << "\t" << access[1] << "\t" << ratios[1];
+  os << l2_misses << "\t" << l2_access << "\t" << l2_ratio << "\t"
+     << l3_misses << "\t" << l3_access << "\t" << l3_ratio;
 }
 /* -------------------------------------------------------------------------- */
 } // end namespace wrappi

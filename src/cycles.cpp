@@ -35,32 +35,44 @@ Cycles::Cycles() {
 /* -------------------------------------------------------------------------- */
 inline long long Cycles::getIdleCycles() const { return values_[0]; }
 
+/* -------------------------------------------------------------------------- */
 inline long long Cycles::getUtilisedCycles() const { return values_[1]; }
 
+/* -------------------------------------------------------------------------- */
 inline long long Cycles::getStalledCycles() const { return values_[2]; }
 
+/* -------------------------------------------------------------------------- */
 inline long long Cycles::getCycles() const { return values_[3]; }
 
+/* -------------------------------------------------------------------------- */
 inline long long Cycles::getRetiredInst() const { return values_[4]; }
 
 /* -------------------------------------------------------------------------- */
 double Cycles::getStalledCyclesRatio() const {
-  return getStalledCycles() / (double) getCycles();
+  auto const& stall_cycles = getStalledCycles();
+  auto const& total_cycles = getCycles();
+  return double(stall_cycles) / total_cycles;
 }
 
 /* -------------------------------------------------------------------------- */
 double Cycles::getIdleCyclesRatio() const {
-  return getIdleCycles() / (double) getCycles();
+  auto const& idle_cycles  = getIdleCycles();
+  auto const& total_cycles = getCycles();
+  return double(idle_cycles) / total_cycles;
 }
 
 /* -------------------------------------------------------------------------- */
 double Cycles::getUtilisedCyclesRatio() const {
-  return getUtilisedCycles() / (double) getCycles();
+  auto const& used_cycles  = getUtilisedCycles();
+  auto const& total_cycles = getCycles();
+  return double(used_cycles) / total_cycles;
 }
 
 /* -------------------------------------------------------------------------- */
 double Cycles::getCyclesPerInstruction() const {
-  return getCycles() / (double) getRetiredInst();
+  auto const& retired = getRetiredInst();
+  auto const& cycles  = getCycles();
+  return double(cycles) / retired;
 }
 
 /* -------------------------------------------------------------------------- */
