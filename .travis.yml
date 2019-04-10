@@ -1,0 +1,37 @@
+dist: xenial
+os: linux
+
+cache:
+  directories: ${TRAVIS_BUILD_DIR}/deps
+
+language: cpp
+compiler:
+  - gcc
+  - clang
+
+addons:
+  apt:
+    sources:
+    - llvm-toolchain-xenial-7
+    - ubuntu-toolchain-r-test
+    packages:
+    - cmake
+    - clang-7
+    - libhwloc-dev
+    - papi-tools
+
+before_install:
+  - if [ $CC = "clang" ]; then
+      export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH;
+    fi
+
+install:
+  - $CXX --version
+  - cmake --version
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make -j 4
+  - make install
