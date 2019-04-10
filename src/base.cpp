@@ -21,6 +21,7 @@
  */
 /* -------------------------------------------------------------------------- */
 #include "wrappi/base.h"
+#include <cstring>
 /* -------------------------------------------------------------------------- */
 namespace wrappi {
 /* -------------------------------------------------------------------------- */
@@ -33,7 +34,10 @@ std::ostream& operator<<(std::ostream& os, const Base& b) {
 void Base::registerEvent(const std::string& name, const std::string& header) {
 #if HAVE_PAPI
   int counter;
-  int retval = PAPI_event_name_to_code(name.c_str(), &counter);
+  auto const len = name.size() + 1;
+  char raw_name[len];
+  std::strcpy(raw_name, name.c_str());
+  int retval = PAPI_event_name_to_code(raw_name, &counter);
   if (retval == PAPI_OK) {
     values_.push_back(0);
     counters_.push_back(counter);
