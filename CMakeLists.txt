@@ -38,7 +38,7 @@ set_target_properties(wrappi PROPERTIES
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 find_package(OpenMP REQUIRED)
-find_package(PAPI)
+find_package(PAPI REQUIRED)
 find_package(Hwloc)
 
 if (OpenMP_CXX_FOUND)
@@ -47,8 +47,8 @@ endif ()
 
 if (PAPI_FOUND)
     target_compile_definitions(wrappi PUBLIC HAVE_PAPI=1)
-    target_include_directories(wrappi PUBLIC ${PAPI_INCLUDE_DIR})
-    target_link_libraries(wrappi PUBLIC ${PAPI_LIBRARY})
+    target_include_directories(wrappi PUBLIC ${PAPI_INCLUDE_DIRS})
+    target_link_libraries(wrappi PUBLIC ${PAPI_LIBRARIES})
 endif ()
 
 if (HWLOC_FOUND)
