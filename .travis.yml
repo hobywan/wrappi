@@ -17,8 +17,6 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - cmake
-    - gcc-8
-    - clang-7
     - papi-tools
     - libhwloc-dev
     - libpapi-dev
