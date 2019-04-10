@@ -1,6 +1,5 @@
 dist: xenial
 os: linux
-sudo: true
 
 cache:
   directories: ${TRAVIS_BUILD_DIR}/deps
@@ -35,4 +34,3 @@ script:
   - cd build
   - cmake ..
   - make -j 4
-  - make install
