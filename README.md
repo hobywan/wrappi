@@ -2,8 +2,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-###### In a nutshell
-**wrappi** is a [C++14](https://isocpp.org/wiki/faq/cpp14-language) library for on-chip core events based on [PAPI](http://icl.utk.edu/papi/) hardware counters.  
+**wrappi** is a [C++14](https://isocpp.org/wiki/faq/cpp14-language) library for core events profiling based on [PAPI](http://icl.utk.edu/papi/) hardware counters.  
 It is targetted for multicore and [manycore](https://en.wikipedia.org/wiki/Manycore_processor) compute nodes endowed with a Linux kernel.  
 It provides a simple and clean interface to retrieve:
 
@@ -14,14 +13,13 @@ It provides a simple and clean interface to retrieve:
 * instructions load/store.
 
 on a given **section** of the code, or for a **set** of compute kernels.  
-It can retrieve stats on each invidual core as well as for all cores.
 
 ### Build and use
 ###### Build
 
 **wrappi** is almost standalone.  
-It requires a [C++14](https://isocpp.org/wiki/faq/cpp14-language) compiler endowed with [OpenMP](https://www.openmp.org), and [PAPI](http://icl.utk.edu/papi/) installed as well.  
-It can be built on any Linux distribution using [CMake](https://cmake.org):  
+It requires a [C++14](https://isocpp.org/wiki/faq/cpp14-language) compiler endowed with [OpenMP](https://www.openmp.org).  
+It can be built on any Linux distribution with [PAPI](http://icl.utk.edu/papi/) installed, using [CMake](https://cmake.org):  
 
 ``` bash
 mkdir build                                  # out-of-source build recommended
@@ -42,7 +40,8 @@ target_link_libraries(target PRIVATE wrappi) # replace 'target' with your librar
 And then include `wrappi.h` in your application.  
 
 ###### Basic usage
-**wrappi** was designed for simplicity and ease of use.  
+**wrappi** was designed with simplicity and ease of use in mind.  
+It can retrieve stats on each invidual core as well as for all cores.  
 Here is a basic usage:
 
 ``` c++
@@ -58,7 +57,7 @@ for (int i = 0; i < nb_kernels; ++i) {
 
 profiler.report();
 ```
->💡 You can profile either cycles, caches, instructions, [TLB](https://en.wikipedia.org/wiki/Translation_lookaside_buffer) or any event supported by [PAPI](http://icl.utk.edu/papi/).
+>💡 You can profile cycles, caches, instructions, [TLB](https://en.wikipedia.org/wiki/Translation_lookaside_buffer), or any event supported by [PAPI](http://icl.utk.edu/papi/) as well.
 
 ### License and contributions
 ###### Copyright (c) 2018 Hoby Rakotoarivelo
