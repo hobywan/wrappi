@@ -1,6 +1,8 @@
 <img src="docs/figures/logo.png" alt="logo" width="100">
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.com/hobywan/wrappi.svg?branch=master)](https://travis-ci.com/hobywan/wrappi)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/97ca452a233a4ca8b0b6ba82f56fd040)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hobywan/wrappi&amp;utm_campaign=Badge_Grade)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 **wrappi** is a [C++14](https://isocpp.org/wiki/faq/cpp14-language) library for core events profiling based on [PAPI](http://icl.utk.edu/papi/) hardware counters.  
 It is targetted for multicore and [manycore](https://en.wikipedia.org/wiki/Manycore_processor) compute nodes endowed with a Linux kernel.  
@@ -16,6 +18,8 @@ on a given **section** of the code, or for a **set** of compute kernels.
 
 ### Build and use
 ###### Build
+
+[![Build Status](https://travis-ci.com/hobywan/wrappi.svg?branch=master)](https://travis-ci.com/hobywan/wrappi)
 
 **wrappi** is almost standalone.  
 It requires a [C++14](https://isocpp.org/wiki/faq/cpp14-language) compiler endowed with [OpenMP](https://www.openmp.org).  
@@ -40,6 +44,9 @@ target_link_libraries(target PRIVATE wrappi) # replace 'target' with your librar
 And then include `wrappi.h` in your application.  
 
 ###### Basic usage
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/97ca452a233a4ca8b0b6ba82f56fd040)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hobywan/wrappi&amp;utm_campaign=Badge_Grade)
+
 **wrappi** was designed with simplicity and ease of use in mind.  
 It can retrieve stats on each invidual core as well as for all cores.  
 Here is a basic usage:
@@ -62,7 +69,7 @@ profiler.report();
 ### License and contributions
 ###### Copyright (c) 2018 Hoby Rakotoarivelo
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 **wrappi** is free and released under the [MIT](https://opensource.org/licenses/MIT) license.  
 It extends the initial work of [Sean Chester](https://github.com/sean-chester/papi-wrapper), but improvements are welcome 😊.  
