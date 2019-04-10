@@ -68,8 +68,18 @@ void Manager::initialize() {
   assert(num_cores);
   assert(mode != Mode::Off);
 
-#ifdef HAVE_PAPI
-  // Initialize PAPI library for each thread.
+#if HAVE_HWLOC
+  hwloc_topology_t topology;
+  int const ok = 0;
+  if (hwloc_topology_init(&topology) == ok
+      and hwloc_topology_load(topology) == ok) {
+    num_cores = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_CORE);
+    hwloc_topology_destroy(topology);
+    omp_set_num_threads(num_cores);
+  }
+#endif
+
+#if HAVE_PAPI
   if (PAPI_is_initialized() == PAPI_NOT_INITED) {
     PAPI_library_init(PAPI_VER_CURRENT);
     #pragma omp parallel num_threads(num_cores)
