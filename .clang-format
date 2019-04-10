@@ -1,0 +1,13 @@
+BasedOnStyle: LLVM
+Language: Cpp
+ColumnLimit: 80
+
+AlignTrailingComments: true
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
+Cpp11BracedListStyle: true
+IndentWidth: 2
+UseTab: Never
+MaxEmptyLinesToKeep: 2
+NamespaceIndentation: None
+CompactNamespaces: true
