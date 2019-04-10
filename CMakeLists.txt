@@ -2,20 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 cmake_policy(SET CMP0048 NEW)
 
 # check supported OS
-if (CMAKE_SYSTEM_NAME MATCHES "Windows")
-    message(FATAL_ERROR "Sorry, Windows is not supported.")
+if (WIN32 OR APPLE)
+    message(FATAL_ERROR "Sorry, only Linux is supported.")
 endif ()
-
-# use same build configuration for external dependencies
-# need to be called before 'project'
-get_cmake_property(Build_Options CACHE_VARIABLES)
-set(EXTERN_BUILD_ARGS "-Wno-dev")
-foreach (cached ${Build_Options})
-    get_property(helper CACHE "${cached}" PROPERTY HELPSTRING)
-    if ("${helper}" MATCHES "No help, variable specified on the command line." OR "${helper}" STREQUAL "")
-        list(APPEND EXTERN_BUILD_ARGS "-D${cached}=${${cached}}")
-    endif ()
-endforeach ()
 
 # set project infos
 project(wrappi VERSION 1.0.0 LANGUAGES CXX)
