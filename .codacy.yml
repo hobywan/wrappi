@@ -1,0 +1,8 @@
+exclude_paths:
+  - 'scripts/*.py'
+  - '*.md'
+
+engines:
+ cppcheck:
+   enabled: true
+   language: c++
