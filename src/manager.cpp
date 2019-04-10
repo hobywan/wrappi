@@ -79,15 +79,13 @@ void Manager::initialize() {
   }
 #endif
 
-#if HAVE_PAPI
   if (PAPI_is_initialized() == PAPI_NOT_INITED) {
     PAPI_library_init(PAPI_VER_CURRENT);
-    #pragma omp parallel num_threads(num_cores)
-      if (PAPI_thread_init(pthread_self) != PAPI_OK) {
-        std::exit(EXIT_FAILURE);
-      }
+#pragma omp parallel
+    if (PAPI_thread_init(pthread_self) != PAPI_OK) {
+      std::exit(EXIT_FAILURE);
+    }
   }
-#endif
 
   hw_counters.resize(num_kernels);
   for (auto& current : hw_counters) {

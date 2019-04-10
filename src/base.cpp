@@ -32,7 +32,6 @@ std::ostream& operator<<(std::ostream& os, const Base& b) {
 
 /* -------------------------------------------------------------------------- */
 void Base::registerEvent(const std::string& name, const std::string& header) {
-#if HAVE_PAPI
   int counter;
   auto const len = name.size() + 1;
   char raw_name[len];
@@ -45,15 +44,12 @@ void Base::registerEvent(const std::string& name, const std::string& header) {
   } else {
     std::fprintf(stderr, "Could not decode PAPI counter: %s\n", name.data());
   }
-#endif
 }
 
 /* -------------------------------------------------------------------------- */
-#if HAVE_PAPI
 void Base::printError(int retval) const {
   std::fprintf(stderr, "PAPI error %d: %s\n", retval, PAPI_strerror(retval));
 }
-#endif
 /* -------------------------------------------------------------------------- */
 void Base::reset() {
   for (auto& value : values_) {
@@ -63,7 +59,6 @@ void Base::reset() {
 
 /* -------------------------------------------------------------------------- */
 void Base::start() {
-#if HAVE_PAPI
   auto const& size = counters_.size();
   std::vector<int> events(counters_);
   int retval = PAPI_start_counters(&events[0], size);
@@ -71,7 +66,6 @@ void Base::start() {
   if (not started_) {
     printError(retval);
   }
-#endif
 }
 
 /* -------------------------------------------------------------------------- */
@@ -80,13 +74,12 @@ void Base::stop() {
     if (started_) {
       auto const size = counters_.size();
       long long events[size];
-#if HAVE_PAPI
       int retval = PAPI_stop_counters(&events[0], size);
       if (retval != PAPI_OK) {
         printError(retval);
         std::exit(EXIT_FAILURE);
       }
-#endif
+
       for (unsigned i = 0; i < values_.size(); ++i) {
         values_[i] += events[i];
       }

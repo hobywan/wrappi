@@ -39,7 +39,6 @@ public:
   void stop();
   std::string headers();
 
-  // operator overloads
   Base& operator=(const Base& other);
   Base& operator+=(const Base& other);
   Base& operator-=(const Base& other);
@@ -48,30 +47,15 @@ public:
 
   friend std::ostream& operator<<(std::ostream& os, const Base& p);
 
-private:
-  #if HAVE_PAPI
-    void printError(int retval) const;
-  #endif
-  virtual void to_stream(std::ostream& os) const = 0;
-
 protected:
-  /**
-   * Registers a new counter with this object based on a PAPI event. Accepts both
-   * preset and native event names.
-   * @param name The ASCII name of the PAPI event to be registered
-   * (decoding to an int takes place within this method).
-   * @param header A human-readable string indicating what is being tracked by
-   * this hardware counter.
-   * @post This object is modified to now track a new PAPI event.
-   */
   void registerEvent(const std::string& name, const std::string& header);
 
-  /**
-   * An array containing the actual hardware counter values (recorded at stop()
-   * invocations).
-   */
   std::vector<long long> values_;
+
 private:
+  void printError(int retval) const;
+  virtual void to_stream(std::ostream& os) const = 0;
+
   bool started_ = false;
   std::vector<int> counters_ = {};
   std::vector<std::string> headers_ = {};
