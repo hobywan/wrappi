@@ -2,7 +2,8 @@ dist: xenial
 os: linux
 
 cache:
-  directories: ${TRAVIS_BUILD_DIR}/deps
+  directories:
+    - ${TRAVIS_BUILD_DIR}/deps
 
 language: cpp
 compiler:
@@ -16,9 +17,11 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - cmake
+    - gcc-8
     - clang-7
-    - libhwloc-dev
     - papi-tools
+    - libhwloc-dev
+    - libpapi-dev
 
 before_install:
   - if [ $CC = "clang" ]; then
