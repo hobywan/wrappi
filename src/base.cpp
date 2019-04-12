@@ -93,7 +93,7 @@ void Base::stop() {
 }
 
 /* -------------------------------------------------------------------------- */
-std::string Base::headers() {
+std::string Base::headers() const {
   if (not headers_.empty()) {
     std::string output(headers_[0]);
     for (unsigned i = 1; i < headers_.size(); ++i) {

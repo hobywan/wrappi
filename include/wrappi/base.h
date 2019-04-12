@@ -37,7 +37,7 @@ public:
   void start();
   void reset();
   void stop();
-  std::string headers();
+  std::string headers() const;
 
   Base& operator=(const Base& other);
   Base& operator+=(const Base& other);
