@@ -21,6 +21,7 @@
  */
 /* -------------------------------------------------------------------------- */
 #include "wrappi/manager.h"
+#include <fstream>
 /* -------------------------------------------------------------------------- */
 namespace wrappi {
 /* -------------------------------------------------------------------------- */
@@ -122,10 +123,32 @@ void Manager::reduce(int in_kernel) {
   }
 }
 /* -------------------------------------------------------------------------- */
-void Manager::report() {
+void Manager::dump(std::string prefix) {
+
+  std::string type;
+  switch (mode) {
+    case Mode::Cache:  type = "cache";  break;
+    case Mode::Cycles: type = "cycles"; break;
+    case Mode::Branch: type = "branch"; break;
+    case Mode::TLB:    type = "TLB";    break;
+    case Mode::Misc:   type = "other";  break;
+    default: std::abort();
+  }
+
+  std::string path(prefix + "/wrappi_" + type + ".dat");
+
   for (int i = 0; i < num_kernels; ++i) {
+
+    std::ofstream file(path, std::ios::out|std::ios::trunc);
+    assert(file.is_open());
+    assert(file.good());
+
     reduce(i);
-    std::cout << *(hw_counters[i][0]) << std::endl;
+
+    auto const& counter = *(hw_counters[i][0]);
+    file << counter.headers() << std::endl;
+    file << std::to_string(i) << "\t" << counter << std::endl;
+    file.close();
   }
 }
 /* -------------------------------------------------------------------------- */

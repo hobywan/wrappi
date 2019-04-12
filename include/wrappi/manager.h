@@ -47,7 +47,7 @@ public:
   void start(int in_kernel = 0);
   void stop(int in_kernel = 0);
   void reduce(int in_kernel = 0);
-  void report();
+  void dump(std::string prefix = ".");
 
 private:
 

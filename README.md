@@ -63,9 +63,10 @@ It can retrieve stats on each invidual core as well as for all cores.
 Here is a basic usage:
 
 ``` c++
+using namespace wrappi;
 int const nb = 4;
-// set cache counters for each core and each kernel.
-wrappi::Manager profile(wrappi::Mode::Cache, nb);   
+// enable cache profiling on all cores for each kernel.
+Manager profile(Mode::Cache, nb);   
 
 for (int i = 0; i < nb; ++i) {                       
   profile.start(i);                               
@@ -73,7 +74,7 @@ for (int i = 0; i < nb; ++i) {
   profile.stop(i);                               
 }
 
-profile.report();
+profile.dump();
 ```
 >💡 You can profile cycles, caches, instructions, [TLB](https://en.wikipedia.org/wiki/Translation_lookaside_buffer), or any event supported by [PAPI](http://icl.utk.edu/papi/) as well.
 
