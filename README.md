@@ -1,10 +1,7 @@
-<img src="docs/figures/logo.png" alt="logo" width="100">
 
-[![Build Status](https://travis-ci.com/hobywan/wrappi.svg?branch=master)](https://travis-ci.com/hobywan/wrappi)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/97ca452a233a4ca8b0b6ba82f56fd040)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hobywan/wrappi&amp;utm_campaign=Badge_Grade)
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+<img src="docs/figures/logo.png" alt="logo" width="150">
 
-**wrappi** is a [C++14](https://isocpp.org/wiki/faq/cpp14-language) library for core events profiling based on [PAPI](http://icl.utk.edu/papi/) hardware counters.  
+**wrappi** is a C++ library for core events profiling based on [PAPI](http://icl.utk.edu/papi/) hardware counters.  
 It is targetted for multicore and [manycore](https://en.wikipedia.org/wiki/Manycore_processor) compute nodes endowed with a Linux kernel.  
 It provides a simple and clean interface to retrieve:
 
@@ -16,10 +13,12 @@ It provides a simple and clean interface to retrieve:
 
 on a given **section** of the code, or for a **set** of compute kernels.  
 
+[![Build Status](https://travis-ci.com/hobywan/wrappi.svg?branch=master)](https://travis-ci.com/hobywan/wrappi)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/97ca452a233a4ca8b0b6ba82f56fd040)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hobywan/wrappi&amp;utm_campaign=Badge_Grade)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 ### Build and use
 ###### Build
-
-[![Build Status](https://travis-ci.com/hobywan/wrappi.svg?branch=master)](https://travis-ci.com/hobywan/wrappi)
 
 **wrappi** is almost standalone.  
 It requires a [C++14](https://isocpp.org/wiki/faq/cpp14-language) compiler endowed with [OpenMP](https://www.openmp.org).  
