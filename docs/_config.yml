@@ -1,4 +1,4 @@
 theme: jekyll-theme-midnight
 title: wrappi
-description: A profiling library based on PAPI hardware counters targetted for Linux-based multicore compute nodes.
+description: A library for CPU events profiling on multicore machines.
 image: https://hobywan.github.io/wrappi/figures/logo.png

@@ -20,41 +20,7 @@ on a given **section** of the code, or for a **set** of compute kernels.
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/97ca452a233a4ca8b0b6ba82f56fd040)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hobywan/wrappi&amp;utm_campaign=Badge_Grade)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-###### Share
 
-<style>
-.social-button-container {
-  /*background-color: red;*/
-  /**
-  * This is a nice CSS trick that allows you to clear an element
-  * without having to add extra elements to your HTML. This helps
-  * seperate content from design, which should always be an architectural
-  * goal.
-  */
-  overflow: hidden;
-  float: left:
-}
-.social-button {
-  float: left;
-  min-width: 90px;
-  min-height: 20px;
-  padding-right: 4px;
-}
-</style>
-
-<div class="social-button-container" style="position: relative; z-index: 999;">
-  <div class="social-button" style="margin-top: -2px; margin-right: -25px;">
-    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script><script type="in/share" data-url="https://hobywan.github.io/trinity" height="20"></script>
-  </div>
-  
-  <div class="social-button">
-    <iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fhobywan.github.io%2Ftrinity&width=121&layout=standard&action=like&size=small&show_faces=true&share=true&height=65&appId" width="121" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media">
-</iframe>
-    <a href="https://hobywan.github.io/trinity" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  </div>
-</div>  
-
-<br>
 
 ### Build and use
 ###### Build
@@ -133,6 +99,26 @@ Enjoy! 😉
 
 ###### Share
 
+<style>
+.social-button-container {
+  /*background-color: red;*/
+  /**
+  * This is a nice CSS trick that allows you to clear an element
+  * without having to add extra elements to your HTML. This helps
+  * seperate content from design, which should always be an architectural
+  * goal.
+  */
+  overflow: hidden;
+  float: left:
+}
+.social-button {
+  float: left;
+  min-width: 90px;
+  min-height: 20px;
+  padding-right: 4px;
+}
+</style>
+
 <div class="social-button-container" style="position: relative; z-index: 999;">
   <div class="social-button" style="margin-top: -2px; margin-right: -25px;">
     <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script><script type="in/share" data-url="https://hobywan.github.io/trinity" height="20"></script>
@@ -143,4 +129,6 @@ Enjoy! 😉
 </iframe>
     <a href="https://hobywan.github.io/trinity" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
-</div>
+</div>  
+
+<br>
