@@ -37,8 +37,8 @@ make install                                     # optional, can use a prefix
 To enable it, please update your CMakeLists.txt with:
 
 ``` cmake
-find_package(wrappi)                             # works for both build/install trees
-target_link_libraries(target PRIVATE wrappi)     # replace 'target' with your library/binary
+find_package(wrappi)                             # in build or install tree
+target_link_libraries(target PRIVATE wrappi)     # replace 'target'
 ```
 And then include `wrappi.h` in your application.  
 
@@ -50,7 +50,7 @@ Besides, [simultaneous multithreading](https://en.wikipedia.org/wiki/Simultaneou
 It can be done by setting some environment variables:
 
 ```bash
-export OMP_PLACES=core OMP_PROC_BIND=close       # with GNU or clang compiler
+export OMP_PLACES=core OMP_PROC_BIND=close       # with Gnu or LLVM compiler
 export KMP_AFFINITY=[granularity=core,compact]   # with Intel compiler  
 ```
 
@@ -64,9 +64,7 @@ Here is a basic usage:
 
 ``` c++
 using namespace wrappi;
-int const nb = 4;
-// enable cache profiling on all cores for each kernel.
-Manager profile(Mode::Cache, nb);   
+Manager profile(Mode::Cache, nb);               
 
 for (int i = 0; i < nb; ++i) {                       
   profile.start(i);                               
@@ -76,18 +74,18 @@ for (int i = 0; i < nb; ++i) {
 
 profile.dump();
 ```
->💡 You can profile cycles, caches, instructions, [TLB](https://en.wikipedia.org/wiki/Translation_lookaside_buffer), or any event supported by [PAPI](http://icl.utk.edu/papi/) as well.
+>You can profile cycles, caches, instructions, [TLB](https://en.wikipedia.org/wiki/Translation_lookaside_buffer), or any event supported by [PAPI](http://icl.utk.edu/papi/) as well.
 
-### License
-###### Copyright (c) 2018 Hoby Rakotoarivelo
+### Contribute
+###### Copyright 2018, Hoby Rakotoarivelo
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-**wrappi** is free and released under the [MIT](https://opensource.org/licenses/MIT) license.  
-It extends the initial work of [Sean Chester](https://github.com/sean-chester/papi-wrapper), but improvements are still welcome 😊.  
+**wrappi** extends the initial work of [Sean Chester](https://github.com/sean-chester/papi-wrapper).<br>
+Improvements are welcome.  
 To get involved, you can:
 
--    report bugs or request features by submitting an [issue](https://github.com/hobywan/trinity/issues).
--    submit code contributions using feature branches and [pull requests](https://github.com/hobywan/trinity/pulls).
+-    report bugs or request features by submitting an [issue](https://github.com/hobywan/wrappi/issues).
+-    submit code contributions using feature branches and [pull requests](https://github.com/hobywan/wrappi/pulls).
 
-Enjoy! 😉
+Enjoy! 😊
